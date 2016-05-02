@@ -1,0 +1,60 @@
+body{
+	 background:#000000;
+	 color:#bbbbbb; 
+}
+
+i {
+	padding:4px;
+}
+
+td { 
+	font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:0.7em; 
+	text-align:left; 
+	padding-left:0; color:#fff; }
+
+/* Redefine Site.Min.css */
+.row{
+	padding:0;
+	margin: 0;
+}
+
+.img-rounded{
+	border-radius:15px;
+	min-height:500px;
+	max-height:500px;
+	width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+.calendar {margin: 0 auto; overflow: hidden; background:#000000;}
+.calendar .days {
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 2px solid #ffffff;
+}
+
+.moon { fill:#D6D5C0; }
+.moonback { fill:black;stroke:#fff;stroke-width:1px; }
+.clock {margin:0 auto; border:0px solid #333; color:#fff; }
+.termine  { font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:1.4em; text-align:right; text-shadow:0 0 5px #00c6ff; padding-left:0; color:#fff;}
+.termin { font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:1em; text-align:right; padding-left:0; color:#fff; }
+.todos  { font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:1.4em; text-align:right; text-shadow:0 0 5px #00c6ff; padding-left:0; color:#fff;}
+.todo { font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:1em; text-align:right; padding-left:0; color:#fff; }
+
+.rssFeed {
+    height: 60px;
+    font-size: 22px;
+}
+
+#Date { font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:2em; text-align:center; text-shadow:0 0 5px #00c6ff; padding-left:0}
+#point { position:relative; -moz-animation:mymove 1s ease infinite; -webkit-animation:mymove 1s ease infinite; }
+
+ul {margin:0 auto; padding:0px; list-style:none; text-align:center; }
+ul li { display:inline; font-size:6em; text-align:left; font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; text-shadow:0 0 5px #00c6ff; }
+
+@-webkit-keyframes mymove 
+{   
+0% {opacity:1; text-shadow:0 0 50px #00c6ff}
+50% {opacity:0.2; text-shadow:none}
+100% {opacity:1; text-shadow:0 0 50px #00c6ff}	
+}

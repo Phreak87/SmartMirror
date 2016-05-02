@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Magic Mirror</title>
+
+<link 	rel="stylesheet" 			href="css/site.min.css">
+<link 	rel="stylesheet" 			href="fonts/font-awesome.min.css">
+<link 	rel="stylesheet" 			href="css/MagicMirror.css">
+
+<script type="text/javascript" 		src="js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" 		src="js/site.min.js"></Script>
+<script src="https://api.trello.com/1/client.js?key=" + TRELLOKEY + "&token=" + TRELLOTOKEN ></script>
+
+<!-- DC RSS Feeds JS -->
+<script type="text/javascript" src="js/tsc_rssfeed.js"></script>
+<script type="text/javascript" src="js/tsc_vticker.js"></script>
+<script src="js/Trello.js"></Script>
+<script src="js/cal.js"></Script>
+<script type="text/javascript" src="js/riset.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/zodiac.js" charset="UTF-8"></script>
+
+
+<!-- Uhrzeit Animation -->
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	var monthNames = [ "Januar", "Februar", "Maerz", "April", "Mai", "Juni", "Juli", "August", "September", "October", "November", "Dezember" ]; 
+	var dayNames= ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"]
+
+	Kalender ();
+	Mondberechnungen();
+	
+	var newDate = new Date(); newDate.setDate(newDate.getDate());
+	$('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+	$('#RSSFeed').rssfeed('http://heise.de.feedsportal.com/c/35207/f/653902/index.rss');
+
+	// 1 Sekunde
+	setInterval( function() {
+		var seconds = new Date().getSeconds();$("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
+		var minutes = new Date().getMinutes();$("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
+		var hours =   new Date().getHours();$("#hours").html(( hours < 10 ? "0" : "" ) + hours);
+		$("#i1").attr("src", "http://192.168.7.153/image/jpeg.cgi");
+		},1000);
+
+	// 1 Minute
+	setInterval( function() {
+		var newDate = new Date(); newDate.setDate(newDate.getDate());
+		$('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+		Kalender();
+		},60 * 1000);
+		
+	// 1 Stunde
+	setInterval( function() {
+		$("Wetter").html("<img src='http://www.daswetter.com/getwid/" + WCODE ></img>");
+		$('#RSSFeed').rssfeed('http://heise.de.feedsportal.com/c/35207/f/653902/index.rss');
+		LoadLabels();
+		Mondberechnungen();
+		}, 24 * 60 * 1000);
+
+}); 
+</script>
+
+<!-- WebSockets 
+<script type="text/javascript">
+	var connection
+	function createWebSocket () {
+	  connection = new WebSocket("ws://localhost:15674");
+	  $('#Websstat').html ("<i class='fa fa-chain'></i><i class='fa fa-chain-broken fa-2x'></i>");
+	  
+	  connection.onopen = function () {
+		$('#Websstat').html ("<i class='fa fa-chain'></i><i class='fa fa-chain-broken fa-2x'></i>");
+	  }
+	  
+	  connection.onclose = function () {
+		$('#Websstat').html ("<i class='fa fa-chain'></i><i class='fa fa-chain-broken fa-2x'></i>");
+		setTimeout(function () {
+			createWebSocket(); 
+		}, 1*1000);
+	  }
+	  
+	  connection.onmessage = function (data) {
+		$('#Websstat').html (data.data);
+	  }
+	};
+	createWebSocket();
+</script>
+-->
+</head>
+
+<body>
+
+<div class="example">
+  <div class="row">
+    <div class="col-md-3">
+		<Div class = "Wetter" style="align:left">
+			<div id="Wetter"><iframe frameBorder="0" style="-webkit-transform: scale(2.0);position:absolute;top:65px" src='http://www.daswetter.com/getwid/' + WCODE></iframe></div>
+		</Div>
+	</div>
+    <div class="col-md-6">
+		<div class="clock">
+			<div id="Date"></div>
+			<ul>
+				<li id="hours"> </li>
+				<li id="point">:</li>
+				<li id="min"> </li>
+				<li id="point">:</li>
+				<li id="sec"> </li>
+			</ul>
+		</div>
+	</div>
+    <div class="col-md-3">
+    <div id="riseset" style="position:absolute; left:10%; top:0; background: black; font-size:1.4em; visibility:hidden">
+      <table>
+        <tr><td> Mond: <span title="moonrise" id="moonrise"/>	</td><td> - <span title="moonset" id="moonset"/></td></tr>
+        <tr><td> Sonne: <span title="sunrise" id="sunrise"/>	</td><td> - <span title="sunset"  id="sunset"></td></tr>
+        <tr><td>Sternzeichen: </td>								<td><span id="zodiac"></td></tr>
+      </table>
+    </div>
+	<svg id="moon" style="position:absolute; right:0; top:10%;" xmlns="http://www.w3.org/2000/svg" version="1.1"/>
+	</div>
+  </div>
+</div>
+
+<div class="example" style="height:500px">  
+  <div class="row">
+    <div class="col-md-3">
+		<img id="i1" class="img-responsive img-rounded"  		src="http://192.168.7.153/image/jpeg.cgi">
+	</div>
+    <div class="col-md-6">
+		<div class="slide clearfix" data-ride="carousel">
+		<div class="carousel-inner" id="carousel">
+		  <div class="item"><img class="img-responsive img-rounded"  				src="img/slider1.jpg"></div>
+		  <div class="item active"><img class="img-responsive img-rounded"  		src="img/black.jpg"></div>
+		  <div class="item"><img class="img-responsive img-rounded"  				src="img/slider2.jpg"></div>
+		  <div class="item"><img class="img-responsive img-rounded"  				src="img/black.jpg"></div>
+		  <div class="item"><img class="img-responsive img-rounded"  				src="img/slider3.jpg"></div>
+		  <div class="item"><img class="img-responsive img-rounded"  				src="img/black.jpg"></div>
+		</div>
+		</div>
+	</div>
+    <div class="col-md-3"	>
+		<div class="termine"><i class="fa fa-calendar fa-2x fa-pull-right"></i>
+			<BR><BR>
+				<div class="calendar">
+					<div class="days">
+						<div class="clearfix">
+							<div class="unit">M</div>
+							<div class="unit">D</div>
+							<div class="unit">M</div>
+							<div class="unit">D</div>
+							<div class="unit">F</div>
+							<div class="unit">S</div>
+							<div class="unit">S</div>
+						</div>
+						<div id="Kalender" class="clearfix"></div>
+					</div>
+				</div>
+		</div>
+		<div class="todos"><i class="fa fa-tasks fa-2x fa-pull-right"></i>
+			<BR><BR>
+			<Div id="tasks"></Div>
+		</div>
+	</div>
+  </div>
+</div>
+
+<div class="example">  
+  <div class="row">
+    <div class="col-md-2"	>
+		<Div id="Recstat"><i class="fa fa-microphone fa-2x"></i><i class="fa fa-microphone-slash"></i></Div>
+	</div>
+    <div class="col-md-8"	>
+		<div class="slide clearfix" data-ride="carousel">
+		<div id="RSSFeed" class="carousel-inner">
+
+		</div>
+		</div>
+	</div>
+    <div class="col-md-2">
+		<Div id="Websstat" style="float:right"><i class="fa fa-chain"></i><i class="fa fa-chain-broken fa-2x"></i></Div>
+	</div>
+  </div>
+</div>
+
+</body>
+	<script type="text/javascript" src="js/moon.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="js/moon-phase.js" charset="UTF-8"></script>
+</html>
