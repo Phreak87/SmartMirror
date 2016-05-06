@@ -11,12 +11,12 @@
 <script type="text/javascript" 		src="js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" 		src="js/site.min.js"></Script>
 <script type="text/javascript" 		src="00_Userdata.js"></Script>
-<script src="https://api.trello.com/1/client.js?key=" + TRELLOKEY + "&token=" + TRELLOTOKEN ></script>
+<!--script src="https://api.trello.com/1/client.js?key=" + TRELLOKEY + "&token=" + TRELLOTOKEN ></script-->
 
 <!-- DC RSS Feeds JS -->
 <script type="text/javascript" src="js/tsc_rssfeed.js"></script>
 <script type="text/javascript" src="js/tsc_vticker.js"></script>
-<script src="js/Trello.js"></Script>
+<!--script src="js/Trello.js"></Script-->
 <script src="js/cal.js"></Script>
 <script type="text/javascript" src="js/riset.js" charset="UTF-8"></script>
 <script type="text/javascript" src="js/zodiac.js" charset="UTF-8"></script>
@@ -53,9 +53,9 @@ $(document).ready(function() {
 		
 	// 1 Stunde
 	setInterval( function() {
-		$("Wetter").html("<img src='http://www.daswetter.com/getwid/" + WCODE ></img>");
+		$("Wetter").html("<img src='http://www.daswetter.com/getwid/" + WCODE + "></img>");
 		$('#RSSFeed').rssfeed('http://heise.de.feedsportal.com/c/35207/f/653902/index.rss');
-		LoadLabels();
+		// LoadLabels();
 		Mondberechnungen();
 		}, 24 * 60 * 1000);
 
