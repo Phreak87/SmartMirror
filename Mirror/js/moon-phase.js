@@ -58,7 +58,7 @@ function phase_junk(phase) {
         sweep = [ 0, 1 ];
         mag = 20 * (phase - 0.75) * 4
     } else { 
-        exit; 
+        return "";
     }
     var unicode_moon;
     if (phase <= 0.0625 || phase > 0.9375) {
