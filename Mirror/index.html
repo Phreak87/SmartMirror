@@ -34,7 +34,7 @@ $(document).ready(function() {
 	
 	var newDate = new Date(); newDate.setDate(newDate.getDate());
 	$('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
-	$('#RSSFeed').rssfeed('http://heise.de.feedsportal.com/c/35207/f/653902/index.rss');
+	$('#RSSFeed').rssfeed(RSSURL);
 	$("#Wetter").html("<iframe frameBorder='0' style='-webkit-transform: scale(2.0);position:absolute;top:65px' src='http://www.daswetter.com/getwid/" + WCODE + "'></iframe>");
 
 	// 1 Sekunde
@@ -55,7 +55,7 @@ $(document).ready(function() {
 	// 1 Stunde
 	setInterval( function() {
 		$("#Wetter").html("<iframe frameBorder='0' style='-webkit-transform: scale(2.0);position:absolute;top:65px' src='http://www.daswetter.com/getwid/" + WCODE + "'></iframe>");
-		$('#RSSFeed').rssfeed('http://heise.de.feedsportal.com/c/35207/f/653902/index.rss');
+		$('#RSSFeed').rssfeed(RSSURL);
 		// LoadLabels();
 		Mondberechnungen();
 		}, 24 * 60 * 1000);
