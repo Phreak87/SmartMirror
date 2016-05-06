@@ -13,10 +13,9 @@ xset s noblank
 echo " #!/bin/bash"             > /home/pi/Desktop/Start.sh
 echo "sleep 2"                 >> /home/pi/Desktop/Start.sh
 echo "cd /home/pi/SmartMirror" >> /home/pi/Desktop/Start.sh
-echo "git pull"                >> /home/pi/Desktop/Start.sh
-echo "cp -R /home/pi/SmartMirror/Mirror /home/pi/Desktop/Electron"       >> /home/pi/Desktop/Start.sh
+echo "sudo git pull"           >> /home/pi/Desktop/Start.sh
 echo "cd /home/pi/Electron"    >> /home/pi/Desktop/Start.sh
-echo "./electron Mirror"       >> /home/pi/Desktop/Start.sh
+echo "./electron /home/pi/SmartMirror/Mirror" >> /home/pi/Desktop/Start.sh
 
 cd /home/pi/Desktop/
 chmod +x /home/pi/Desktop/Start.sh 
