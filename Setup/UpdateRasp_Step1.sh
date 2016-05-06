@@ -17,25 +17,10 @@ sudo rm -f /home/pi/Desktop/sonic-pi.desktop
 sudo rm -f /home/pi/Desktop/wolfram-language.desktop
 sudo rm -f /home/pi/Desktop/wolfram-mathematica.desktop
 
-apt-get update
+sudo apt-get update
 sudo rpi-update
 sudo apt-get upgrade --yes
 sudo apt-get dist-upgrade --yes
-apt-get install tightvncserver x11-xserver-utils unclutter
+sudo apt-get install tightvncserver x11-xserver-utils unclutter
 sudo apt-get -f install
-
-xset s off
-xset -dpms
-xset s noblank
-
-echo " #!/bin/bash"  > /home/pi/Desktop/Test.sh
-echo "sleep 2"     >> /home/pi/Desktop/Test.sh
-echo "/home/pi/Desktop/Electron/electron /home/pi/Desktop/Electron/test" >> /home/pi/Desktop/Test.sh
-
-cd /home/pi/Desktop/
-chmod +x /home/pi/Desktop/Test.sh 
-echo "@/home/pi/Desktop/Test.sh" >> /home/pi/.config/lxsession/LXDE-pi/autostart
-echo "@xset s off" >> /home/pi/.config/lxsession/LXDE-pi/autostart
-echo "@xset -dpms" >> /home/pi/.config/lxsession/LXDE-pi/autostart
-echo "@xset s noblank" >> /home/pi/.config/lxsession/LXDE-pi/autostart
-nano /home/pi/.config/lxsession/LXDE-pi/autostart
+sudo init 6

@@ -5,6 +5,9 @@ For testing purposes double click on Index.html.
 
 Otherwise Move Web-Contents into a Folder and Start "./electron FOLDERNAME
 
+first download the repository, start Setup and follow the Instructions
+git clone https://github.com/Phreak87/SmartMirror.git
+
 Smart Mirror on Electron:
 
 Functions:
