@@ -1,19 +1,21 @@
 #!! /bin/bash
 
-cd /home/pi/Desktop/
-git clone https://github.com/Phreak87/SmartMirror.git  						#Auf Desktop unter SmartMirror
-mkdir Electron																# Hier entpacken wir
-cd Electron																	# und wechseln hinein
-unzip /home/pi/Desktop/SmartMirror/Setup/electron-v0.37.8-linux-arm.zip		# In Ordner Electron entpacken
-cp /home/pi/Desktop/SmartMirror/*.* /home/pi/Desktop/Electron/test			# kopiere alle nötigen Dateien
+cd /home/pi
+mkdir Electron
+cd Electron
+unzip /home/pi/SmartMirror/Setup/electron-v0.37.8-linux-arm.zip
+cp -R /home/pi/SmartMirror/Mirror /home/pi/Desktop/Electron
 
 xset s off
 xset -dpms
 xset s noblank
 
-echo " #!/bin/bash"  > /home/pi/Desktop/Test.sh
-echo "sleep 2"     >> /home/pi/Desktop/Test.sh
-echo "/home/pi/Desktop/Electron/electron /home/pi/Desktop/Electron/test" >> /home/pi/Desktop/Test.sh
+echo " #!/bin/bash"             > /home/pi/Desktop/Test.sh
+echo "sleep 2"                 >> /home/pi/Desktop/Test.sh
+echo "cd /home/pi/SmartMirror" >> /home/pi/Desktop/Test.sh
+echo "git pull"                >> /home/pi/Desktop/Test.sh
+echo "cp -R /home/pi/SmartMirror/Mirror /home/pi/Desktop/Electron"       >> /home/pi/Desktop/Test.sh
+echo "/home/pi/Electron/electron /home/pi/Electron/Mirror"               >> /home/pi/Desktop/Test.sh
 
 cd /home/pi/Desktop/
 chmod +x /home/pi/Desktop/Test.sh 
