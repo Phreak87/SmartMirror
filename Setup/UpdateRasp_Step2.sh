@@ -4,7 +4,6 @@ cd /home/pi
 mkdir Electron
 cd Electron
 unzip /home/pi/SmartMirror/Setup/electron-v0.37.8-linux-arm.zip
-cp -R /home/pi/SmartMirror/Mirror /home/pi/Desktop/Electron
 
 xset s off
 xset -dpms
